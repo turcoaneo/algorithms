@@ -1,4 +1,4 @@
-package org.algorithms.test.copilot.leet.total.chars;
+package org.algorithms.test.copilot.leet.total;
 
 import org.springframework.stereotype.Component;
 import org.algorithms.test.copilot.aop.TrackExecutionTime;
