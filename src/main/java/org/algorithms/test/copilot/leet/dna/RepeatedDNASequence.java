@@ -1,4 +1,4 @@
-package org.algorithms.test.copilot.leet.total.dna;
+package org.algorithms.test.copilot.leet.dna;
 
 import java.util.List;
 

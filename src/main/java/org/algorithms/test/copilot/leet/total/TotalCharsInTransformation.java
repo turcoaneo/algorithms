@@ -1,4 +1,4 @@
-package org.algorithms.test.copilot.leet.total.chars;
+package org.algorithms.test.copilot.leet.total;
 
 import java.util.Arrays;
 import java.util.List;

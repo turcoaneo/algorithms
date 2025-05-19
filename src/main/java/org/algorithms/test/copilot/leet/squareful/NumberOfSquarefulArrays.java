@@ -1,4 +1,4 @@
-package org.algorithms.test.copilot.leet.total.squareful;
+package org.algorithms.test.copilot.leet.squareful;
 
 public class NumberOfSquarefulArrays {
     public static void main(String[] args) {

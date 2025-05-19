@@ -1,7 +1,7 @@
-package org.algorithms.test.copilot.leet.total.squareful;
+package org.algorithms.test.copilot.leet.squareful;
 
-import org.springframework.stereotype.Component;
 import org.algorithms.test.copilot.aop.TrackExecutionTime;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -47,28 +47,5 @@ public class Solution {
     private boolean isPerfectSquare(int sum) {
         int root = (int) Math.sqrt(sum);
         return root * root == sum;
-    }
-
-    private int backtrack(int[] nums, boolean[] used, int prev, int count, Map<Integer, List<Integer>> graph, List<Integer> current) {
-        if (count == nums.length) {
-            System.out.println(current); // 🖨 Print each valid permutation!
-            return 1;
-        }
-
-        int total = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])) continue; // Skip duplicates
-
-            if (prev == -1 || graph.get(prev).contains(nums[i])) { // Check valid connection
-                used[i] = true;
-                current.add(nums[i]); // ✅ Add number to current permutation
-
-                total += backtrack(nums, used, nums[i], count + 1, graph, current);
-
-                current.remove(current.size() - 1); // ❌ Remove last element (backtrack)
-                used[i] = false;
-            }
-        }
-        return total;
     }
 }
