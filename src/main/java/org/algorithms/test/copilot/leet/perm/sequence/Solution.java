@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component("getPermutation")
+@Component("sequencePermutation")
 public class Solution {
     @TrackExecutionTime
     public String getPermutation(int n, int k) {
