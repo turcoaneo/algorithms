@@ -71,9 +71,7 @@ public class BTree {
             i++;
 
             // **Check if child has space before splitting**
-            if (currentNode.children[i].numKeys < degreeLength) {
-                // There's room—insert directly into the correct child
-            } else {
+            if (currentNode.children[i].numKeys >= degreeLength) {
                 // No space—perform a split before proceeding
                 splitChild(currentNode, i, currentNode.children[i]);
                 if (key > currentNode.keys[i]) {
@@ -107,9 +105,7 @@ public class BTree {
 
         // If not a leaf, move child pointers
         if (!child.isLeaf) {
-            for (int j = 0; j < degree; j++) {
-                newNode.children[j] = child.children[j + degree];
-            }
+            if (degree >= 0) System.arraycopy(child.children, degree, newNode.children, 0, degree);
         }
 
         child.numKeys = degree - 1;
@@ -142,16 +138,120 @@ public class BTree {
         });
     }
 
+    public boolean isFound(BTreeNode node, int key) {
+        int i = 0;
+
+        // Locate the correct position within the node
+        while (i < node.numKeys && key > node.keys[i]) {
+            i++;
+        }
+
+        // If key is found, return true
+        if (i < node.numKeys && key == node.keys[i]) {
+            return true;
+        }
+
+        // If we've reached a leaf and didn't find the key, return false
+        if (node.isLeaf) {
+            return false;
+        }
+
+        // Recur down the correct child
+        return isFound(node.children[i], key);
+    }
+
+    public SearchResult search(BTreeNode parent, BTreeNode node, int key, int childIndex) {
+        int i = 0;
+
+        // Locate correct position within the node
+        while (i < node.numKeys && key > node.keys[i]) {
+            i++;
+        }
+
+        // If key is found, return full search details
+        if (i < node.numKeys && key == node.keys[i]) {
+            return new SearchResult(key, parent, childIndex, i, node.isLeaf); // Captures parent, child index, and key index
+        }
+
+        // If it's a leaf and not found, return failure
+        if (node.isLeaf) {
+            return null; // Key not found
+        }
+
+        // Recur down the correct child while tracking parent and child index
+        return search(node, node.children[i], key, i);
+    }
+
+    public record SearchResult(int key, BTreeNode parent, int childIndex, int keyPosition, boolean isLeaf) {
+        @Override
+        public String toString() {
+            int[] keys = null;
+            if (parent != null) keys = parent.keys;
+            return "SearchResult{ key=" + key + " parent=" + Arrays.toString(keys) + ", childIndex=" + childIndex +
+                    ", keyPosition=" + keyPosition + ", is leaf=" + isLeaf + " }";
+        }
+    }
+
+    @TrackExecutionTime
+    public void naiveDeleteFromLeaf(BTreeNode parent, int index, int key) {
+        BTreeNode leafNode = parent.children[index];
+
+        // Step 1: Remove the key if the leaf still has enough keys
+        for (int i = 0; i < leafNode.numKeys; i++) {
+            if (leafNode.keys[i] == key) {
+                for (int j = i; j < leafNode.numKeys - 1; j++) {
+                    leafNode.keys[j] = leafNode.keys[j + 1]; // Shift keys left
+                }
+                leafNode.numKeys--;
+                leafNode.keys[leafNode.numKeys] = 0;
+            }
+        }
+        // Step 2 check if child is empty and downgrade parent key
+        if (leafNode.numKeys == 0) {
+            leafNode.numKeys++;
+            int lowerBound = Integer.MIN_VALUE;
+            int[] parentKeys = parent.getKeys();
+            int upperBound = parentKeys[0];
+            for (int i = 0; i < parentKeys.length - 2; i++) { // check parent key
+                if (lowerBound < key && key < upperBound) {
+                    for (int j = i; j < parentKeys.length - 1; j++) {
+                        parentKeys[j] = parentKeys[j + 1];// shift parent keys
+                    }
+                    break;
+                }
+                lowerBound = parentKeys[i];
+                upperBound = parentKeys[i + 1];
+            }
+
+            int i = index;
+            for (; i < parent.getChildren().length - 2; i++) {
+                parent.children[i] = parent.children[i + 1];//shifting children
+            }
+            parent.children[i] = null;/// remove last child no matter what
+            parentKeys[parentKeys.length - 1] = 0;// remove last parent key no matter what
+            parent.numKeys--;
+            this.insertIterative(upperBound); // re-insert parent key
+        }
+    }
+
     public static void main(String[] args) {
         BTree tree = new BTree(2); // B-Tree with degree
-//        int[] keys = {10, 20, 5, 6, 30, 40, 4, 3, 7, 8, 12};
-        int[] keys = {10, 20, 5, 6, 30, 40, 4, 3, 7, 8,};
+        int[] keys = {10, 20, 5, 6, 30, 40, 7, 8};
 
         for (int key : keys) {
             tree.insertIterative(key);
         }
 
-//        tree.insertIterative(15);
+        System.out.println("B-Tree Structure:");
+        tree.printTree(tree.root, 0);
+        boolean isFound = tree.isFound(tree.root, 5);
+        System.out.println("Found key: " + isFound);
+
+        SearchResult result = tree.search(null, tree.root, 5, -1);
+        if (result == null) return;
+        System.out.println(result);
+
+        if (result.isLeaf()) tree.naiveDeleteFromLeaf(result.parent(), result.childIndex(), result.key());
         System.out.println("B-Tree Structure:");
         tree.printTree(tree.root, 0);
     }

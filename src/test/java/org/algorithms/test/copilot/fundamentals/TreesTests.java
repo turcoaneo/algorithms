@@ -28,6 +28,23 @@ public class TreesTests {
     BTree bTree;
 
     @Test
+    void testDeletionAutoBalancedTree() {
+        int[] keys = {10, 20, 5, 6, 30, 40, 7, 8};
+
+        for (int key : keys) {
+            bTree.insertIterative(key);
+        }
+        BTreeNode root = bTree.getRoot();
+        BTree.SearchResult result = bTree.search(null, root, 5, -1);
+        Assertions.assertNotNull(result);
+
+        bTree.naiveDeleteFromLeaf(result.parent(), result.childIndex(), result.key());
+        Assertions.assertArrayEquals(root.getKeys(), new int[]{10, 0, 0});
+        Assertions.assertArrayEquals(root.getChildren()[0].getKeys(), new int[]{6, 7, 8,});
+        Assertions.assertArrayEquals(root.getChildren()[1].getKeys(), new int[]{20, 30, 40,});
+    }
+
+    @Test
     void testAutoBalancedTree() {
         int[] keys = {10, 20, 5, 6, 30, 40, 4, 3, 7, 8,};
 
