@@ -28,7 +28,7 @@ public class AtomicCounterExample {
             threadPool.shutdown();
         }
 
-        System.out.println("Final Counter Value: " + counter.get()); // ✅ Ensures final count after execution
+        System.out.println("Final Counter Value: " + counter.get()); // Ensures final count after execution
     }
 
     private static void populateQueue() {

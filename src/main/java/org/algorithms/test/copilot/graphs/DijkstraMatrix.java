@@ -31,7 +31,7 @@ public class DijkstraMatrix {
                 if (graph[u][v] != INF && !visited[v]) { // Check valid edge
                     int newDist = dist[u] + graph[u][v];
                     if (newDist < dist[v]) {
-                        dist[v] = newDist; // Update shortest path
+                        dist[v] = newDist; // Update the shortest path
                         pq.add(v); // Add updated node to PQ
                     }
                 }
@@ -54,6 +54,6 @@ public class DijkstraMatrix {
         // Example graph (Adjacency Matrix representation)
         int[][] graph = RoyFloyd.getRoyInput();
 
-        new DijkstraMatrix().dijkstra(graph, 0); // Find shortest paths from node 0
+        new DijkstraMatrix().dijkstra(graph, 0); // Find the shortest paths from node 0
     }
 }

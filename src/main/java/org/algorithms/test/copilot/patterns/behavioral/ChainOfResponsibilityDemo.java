@@ -15,7 +15,7 @@ abstract class SupportHandler {
 class Level1Support extends SupportHandler {
     public void handleRequest(String issue) {
         if (issue.equalsIgnoreCase("basic")) {
-            System.out.println("✅ Level 1 Support: Handling basic issue.");
+            System.out.println("Level 1 Support: Handling basic issue.");
         } else if (nextHandler != null) {
             nextHandler.handleRequest(issue); // Forward request
         }
@@ -25,7 +25,7 @@ class Level1Support extends SupportHandler {
 class Level2Support extends SupportHandler {
     public void handleRequest(String issue) {
         if (issue.equalsIgnoreCase("technical")) {
-            System.out.println("✅ Level 2 Support: Handling technical issue.");
+            System.out.println("Level 2 Support: Handling technical issue.");
         } else if (nextHandler != null) {
             nextHandler.handleRequest(issue); // Forward request
         }
@@ -34,7 +34,7 @@ class Level2Support extends SupportHandler {
 
 class Level3Support extends SupportHandler {
     public void handleRequest(String issue) {
-        System.out.println("✅ Level 3 Support: Handling complex issue.");
+        System.out.println("Level 3 Support: Handling complex issue.");
     }
 }
 
@@ -48,8 +48,8 @@ public class ChainOfResponsibilityDemo {
         level1.setNextHandler(level2);
         level2.setNextHandler(level3);
 
-        level1.handleRequest("basic");      // ✅ Handled by Level 1
-        level1.handleRequest("technical");  // ✅ Forwarded to Level 2
-        level1.handleRequest("complex");    // ✅ Forwarded to Level 3
+        level1.handleRequest("basic");      // Handled by Level 1
+        level1.handleRequest("technical");  // Forwarded to Level 2
+        level1.handleRequest("complex");    // Forwarded to Level 3
     }
 }

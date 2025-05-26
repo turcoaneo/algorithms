@@ -30,9 +30,9 @@ class ShapeFactory {
 public class FactoryPatternDemo {
     public static void main(String[] args) {
         Shape shape1 = ShapeFactory.getShape("circle");
-        shape1.draw(); // ✅ "Drawing a Circle"
+        shape1.draw(); // "Drawing a Circle"
 
         Shape shape2 = ShapeFactory.getShape("rectangle");
-        shape2.draw(); // ✅ "Drawing a Rectangle"
+        shape2.draw(); // "Drawing a Rectangle"
     }
 }

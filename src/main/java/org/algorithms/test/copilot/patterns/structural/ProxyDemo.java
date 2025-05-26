@@ -17,8 +17,10 @@ public class ProxyDemo {
         skiLift.accessLift("Robert Lewandowski");
 
         // Simulating expiration (for demo purposes, pretend time has passed)
-        System.out.println("\n⏳ Simulating time lapse...");
-        try { Thread.sleep(3000); } catch (InterruptedException e) {} // Just a pause for realism
+        System.out.println("\n Simulating time lapse...");
+        try { Thread.sleep(3000); } catch (InterruptedException e) {
+            System.out.println("Error:" + e);
+        } // Just a pause for realism
 
         // Attempt access after expiration
         skiLift.accessLift("Robert Lewandowski"); // Should be denied
@@ -34,7 +36,7 @@ class SkiLiftProxy implements SkiLift {
     public static void issuePass(String skierName, int durationHours) {
         LocalTime expirationTime = LocalTime.now().plusHours(durationHours);
         passExpirationMap.put(skierName, expirationTime);
-        System.out.println("🎿 Issued a " + durationHours + "-hour ski pass for " + skierName + ", valid until " + expirationTime);
+        System.out.println("Issued a " + durationHours + "-hour ski pass for " + skierName + ", valid until " + expirationTime);
     }
 
     @Override
@@ -44,13 +46,14 @@ class SkiLiftProxy implements SkiLift {
         if (expirationTime != null && LocalTime.now().isBefore(expirationTime)) {
             realSkiLift.accessLift(skierName); // Grant access
         } else {
-            System.out.println("❌ Access Denied: " + skierName + "'s ski pass has expired!");
+            System.out.println(" Access Denied: " + skierName + "'s ski pass has expired!");
         }
     }
 }// Real Object: Actual Ski Lift (Access Granted)
 class RealSkiLift implements SkiLift {
+    @Override
     public void accessLift(String skierName) {
-        System.out.println("✅ " + skierName + " accessed the ski lift successfully!");
+        System.out.println("- " + skierName + " accessed the ski lift successfully!");
     }
 }
 

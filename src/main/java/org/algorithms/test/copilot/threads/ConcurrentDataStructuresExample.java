@@ -34,7 +34,7 @@ public class ConcurrentDataStructuresExample {
         } finally {
             threadPool.shutdown();
             try {
-                boolean b = threadPool.awaitTermination(2, TimeUnit.SECONDS);// ✅ Wait for tasks to finish
+                boolean b = threadPool.awaitTermination(2, TimeUnit.SECONDS);// Wait for tasks to finish
                 System.out.println("Awaited: " + b);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

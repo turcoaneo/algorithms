@@ -41,13 +41,13 @@ public class BridgePatternDemo {
         Device tv = new TV();
         RemoteControl remote = new BasicRemote(tv);
 
-        remote.turnOn();  // ✅ "📺 TV is ON"
-        remote.turnOff(); // ✅ "📺 TV is OFF"
+        remote.turnOn();  // "📺 TV is ON"
+        remote.turnOff(); // "📺 TV is OFF"
 
         Device radio = new Radio();
         remote = new BasicRemote(radio);
 
-        remote.turnOn();  // ✅ "📻 Radio is ON"
-        remote.turnOff(); // ✅ "📻 Radio is OFF"
+        remote.turnOn();  // "📻 Radio is ON"
+        remote.turnOff(); // "📻 Radio is OFF"
     }
 }

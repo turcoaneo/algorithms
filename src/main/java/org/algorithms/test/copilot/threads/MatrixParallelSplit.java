@@ -63,7 +63,7 @@ class MatrixTask extends RecursiveTask<int[][]> {
     }
 }
 
-// ✅ Wrapper class for ForkJoinPool
+// Wrapper class for ForkJoinPool
 class ForkJoinPoolWrapper implements AutoCloseable {
     private final ForkJoinPool pool;
 
@@ -91,7 +91,7 @@ public class MatrixParallelSplit {
             System.out.println("Error: N must be a denominator of M");
             return;
         }
-        // ✅ Using try-with-resources for ForkJoinPool
+        // Using try-with-resources for ForkJoinPool
         try (ForkJoinPoolWrapper pool = new ForkJoinPoolWrapper()) {
 
             MatrixTask[][] tasks = createAndInvokeTasks(N, M, matrix, pool);
