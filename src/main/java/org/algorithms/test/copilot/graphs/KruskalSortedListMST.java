@@ -8,21 +8,21 @@ import java.util.*;
 @Component
 public class KruskalSortedListMST {
     @TrackExecutionTime
-    public List<Edge> kruskalMST(List<Edge> edges) {
-        edges.sort(Comparator.comparingInt(e -> e.weight)); // Sort edges by weight
+    public List<Edge> kruskalMST(List<Edge> Edges) {
+        Edges.sort(Comparator.comparingInt(e -> e.weight)); // Sort edges by weight
 
         Set<String> nodesInMST = new HashSet<>();
         List<Edge> mst = new ArrayList<>();
 
-        for (Edge edge : edges) {
+        for (Edge Edge : Edges) {
             // Include edge only if it connects new nodes
-            if (!nodesInMST.contains(edge.nodeA) || !nodesInMST.contains(edge.nodeB)) {
-                mst.add(edge);
-                nodesInMST.add(edge.nodeA);
-                nodesInMST.add(edge.nodeB);
+            if (!nodesInMST.contains(Edge.nodeA) || !nodesInMST.contains(Edge.nodeB)) {
+                mst.add(Edge);
+                nodesInMST.add(Edge.nodeA);
+                nodesInMST.add(Edge.nodeB);
 
                 // Stop early once MST has enough edges (V-1 edges)
-                if (mst.size() == edges.size() - 1) break;
+                if (mst.size() == Edges.size() - 1) break;
             }
         }
 
@@ -36,19 +36,19 @@ public class KruskalSortedListMST {
 
     public static void main(String[] args) {
         // Using List<Edge> instead of Map to ensure sorting by weight directly
-        List<Edge> edges = getEdgeList();
+        List<Edge> Edges = getEdgeList();
 
-        new KruskalSortedListMST().kruskalMST(edges);
+        new KruskalSortedListMST().kruskalMST(Edges);
     }
 
     public static List<Edge> getEdgeList() {
-        List<Edge> edges = new ArrayList<>();
-        edges.add(new Edge("A", "B", 3));
-        edges.add(new Edge("A", "C", 1));
-        edges.add(new Edge("B", "C", 3));
-        edges.add(new Edge("B", "D", 4));
-        edges.add(new Edge("C", "D", 2));
-        return edges;
+        List<Edge> Edges = new ArrayList<>();
+        Edges.add(new Edge("A", "B", 3));
+        Edges.add(new Edge("A", "C", 1));
+        Edges.add(new Edge("B", "C", 3));
+        Edges.add(new Edge("B", "D", 4));
+        Edges.add(new Edge("C", "D", 2));
+        return Edges;
     }
 
    /*

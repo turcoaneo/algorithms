@@ -31,7 +31,7 @@ class File extends FileSystemNode {
 
 // 3️⃣ Composite Class: Folder (Tree Structure)
 class Folder extends FileSystemNode {
-    private List<FileSystemNode> children = new ArrayList<>();
+    private final List<FileSystemNode> children = new ArrayList<>();
 
     public Folder(String name) { super(name); }
 
@@ -65,6 +65,6 @@ public class CompositePatternTreeDemo {
         root.addComponent(subFolder);
         subFolder.addComponent(subFile);
 
-        root.showDetails(""); // ✅ Displays proper tree structure
+        root.showDetails(""); // Displays proper tree structure
     }
 }

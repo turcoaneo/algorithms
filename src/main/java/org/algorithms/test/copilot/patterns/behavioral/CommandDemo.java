@@ -11,9 +11,9 @@ interface TransferCommand {
 
 // Account Class (For Money Transactions)
 class Account {
-    private String name;
+    private final String name;
     private double balance;
-    private boolean available;
+    private final boolean available;
 
     public Account(String name, double balance, boolean available) {
         this.name = name;
@@ -30,7 +30,7 @@ class Account {
 
 // Storage Class (For Material Transactions)
 class Storage {
-    private Map<String, Integer> inventory = new HashMap<>();
+    private final Map<String, Integer> inventory = new HashMap<>();
 
     public void addMaterial(String material, int quantity) {
         inventory.put(material, inventory.getOrDefault(material, 0) + quantity);
@@ -42,17 +42,7 @@ class Storage {
 }
 
 // Recipient Class (For Material Transactions)
-class Recipient {
-    private String name;
-    private boolean available;
-
-    public Recipient(String name, boolean available) {
-        this.name = name;
-        this.available = available;
-    }
-
-    public String getName() { return name; }
-    public boolean isAvailable() { return available; }
+record Recipient(String name, boolean available) {
 
     public void receiveMaterial(String material, int quantity) {
         System.out.println(name + " received " + quantity + " units of " + material);
@@ -61,9 +51,9 @@ class Recipient {
 
 // Concrete Command: Money Transfer
 class MoneyTransferCommand implements TransferCommand {
-    private Account sender;
-    private Account receiver;
-    private double amount;
+    private final Account sender;
+    private final Account receiver;
+    private final double amount;
 
     public MoneyTransferCommand(Account sender, Account receiver, double amount) {
         this.sender = sender;
@@ -76,7 +66,7 @@ class MoneyTransferCommand implements TransferCommand {
         if (receiver.isAvailable()) {
             sender.withdraw(amount);
             receiver.deposit(amount);
-            System.out.println("✅ Money Transfer Successful: $" + amount + " sent from " + sender.getName() + " to " + receiver.getName());
+            System.out.println("Money Transfer Successful: $" + amount + " sent from " + sender.getName() + " to " + receiver.getName());
         } else {
             rollback();
         }
@@ -84,16 +74,16 @@ class MoneyTransferCommand implements TransferCommand {
 
     @Override
     public void rollback() {
-        System.out.println("❌ Recipient unavailable. Rolling back transaction...");
+        System.out.println(" Recipient unavailable. Rolling back transaction...");
     }
 }
 
 // Concrete Command: Material Transfer
 class MaterialTransferCommand implements TransferCommand {
-    private Storage warehouse;
-    private String material;
-    private int quantity;
-    private Recipient receiver;
+    private final Storage warehouse;
+    private final String material;
+    private final int quantity;
+    private final Recipient receiver;
 
     public MaterialTransferCommand(Storage warehouse, Recipient receiver, String material, int quantity) {
         this.warehouse = warehouse;
@@ -104,10 +94,10 @@ class MaterialTransferCommand implements TransferCommand {
 
     @Override
     public void execute() {
-        if (receiver.isAvailable()) {
+        if (receiver.available()) {
             warehouse.removeMaterial(material, quantity);
             receiver.receiveMaterial(material, quantity);
-            System.out.println("✅ Material Transfer Successful: " + quantity + " units of " + material + " sent to " + receiver.getName());
+            System.out.println("Material Transfer Successful: " + quantity + " units of " + material + " sent to " + receiver.name());
         } else {
             rollback();
         }
@@ -115,7 +105,7 @@ class MaterialTransferCommand implements TransferCommand {
 
     @Override
     public void rollback() {
-        System.out.println("❌ Recipient unavailable. Rolling back material transfer...");
+        System.out.println("Recipient unavailable. Rolling back material transfer...");
     }
 }
 

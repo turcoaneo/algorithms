@@ -60,9 +60,9 @@ public class TrieDemo {
         trie.insert("care");
         trie.insert("cart");
 
-        System.out.println("Search 'car': " + trie.search("car")); // ✅ True
-        System.out.println("Search 'cat': " + trie.search("cat")); // ❌ False
-        System.out.println("Autocomplete 'car': " + trie.getWordsWithPrefix("car")); // ✅ ["car", "card", "care", "cart"]
+        System.out.println("Search 'car': " + trie.search("car")); // True
+        System.out.println("Search 'cat': " + trie.search("cat")); //  False
+        System.out.println("Autocomplete 'car': " + trie.getWordsWithPrefix("car")); // ["car", "card", "care", "cart"]
 
         CompressedTrie compressedTrie = new CompressedTrie();
         compressedTrie.insert("bar");
@@ -70,8 +70,8 @@ public class TrieDemo {
         compressedTrie.insert("bare");
         compressedTrie.insert("bart");
 
-        System.out.println("Search 'bar': " + compressedTrie.search("bar")); // ✅ True
-        System.out.println("Search 'bat': " + compressedTrie.search("bat")); // ❌ False
+        System.out.println("Search 'bar': " + compressedTrie.search("bar")); // True
+        System.out.println("Search 'bat': " + compressedTrie.search("bat")); //  False
 
         DAWG dawg = new DAWG();
         dawg.insert("ant");
@@ -79,8 +79,8 @@ public class TrieDemo {
         dawg.insert("ante");
         dawg.insert("anthology");
 
-        System.out.println("Search 'anthology': " + dawg.search("anthology")); // ✅ True
-        System.out.println("Search 'act': " + dawg.search("act")); // ❌ False
+        System.out.println("Search 'anthology': " + dawg.search("anthology")); // True
+        System.out.println("Search 'act': " + dawg.search("act")); //  False
     }
 }
 
@@ -94,6 +94,7 @@ class CompressedTrie {
 
     public void insert(String word) {
         CompressedTrieNode node = root;
+        //noinspection LoopStatementThatDoesntLoop
         for (int i = 0; i < word.length(); ) {
             String key = word.substring(i);
             node = node.children.computeIfAbsent(key, k -> new CompressedTrieNode());
@@ -104,6 +105,7 @@ class CompressedTrie {
 
     public boolean search(String word) {
         CompressedTrieNode node = root;
+        //noinspection LoopStatementThatDoesntLoop
         for (int i = 0; i < word.length(); ) {
             String key = word.substring(i);
             node = node.children.get(key);

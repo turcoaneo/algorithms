@@ -10,10 +10,10 @@ public class AsyncServicesWithLogging {
         fetchServiceA()
                 .thenCompose(AsyncServicesWithLogging::fetchServiceB)
                 .thenCompose(AsyncServicesWithLogging::fetchServiceC)
-                .thenAccept(finalResult -> logger.info("Final Merged Response: " + finalResult)) // ✅ Logging instead of direct print
+                .thenAccept(finalResult -> logger.info("Final Merged Response: " + finalResult)) // Logging instead of direct print
                 .exceptionally(ex -> {
-                    logger.severe("Exception Occurred: " + ex.getMessage()); // ✅ Error handling with logging
-                    return null; // ✅ Ensures graceful failure without breaking execution
+                    logger.severe("Exception Occurred: " + ex.getMessage()); // Error handling with logging
+                    return null; // Ensures graceful failure without breaking execution
                 });
     }
 
