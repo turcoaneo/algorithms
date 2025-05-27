@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @SpringBootTest
 public class LeetcodePermTests {
     @Autowired
-    org.algorithms.test.copilot.leet.medium.perm.unique.Solution uniPerm;
+    org.algorithms.test.copilot.leet.medium.perm.unique.Solution hardUniquePerm;
     @Autowired
     HeapsIterative heapsIterative;
     @Autowired
@@ -64,7 +64,7 @@ public class LeetcodePermTests {
     @Test
     void testPerm() {
         int[] nums = {1, 1, 2};
-        List<List<Integer>> expected = uniPerm.permuteUnique(nums);
+        List<List<Integer>> expected = hardUniquePerm.permuteUnique(nums);
         System.out.println(expected);
         List<List<Integer>> actual = heapsIterative.permuteUnique(nums);
         Assertions.assertTrue(expected.stream().anyMatch(actual::contains));
@@ -75,7 +75,7 @@ public class LeetcodePermTests {
         int[] nums = {1, 1, 2};
         List<List<Integer>> expected =
                 Arrays.asList(Arrays.asList(1, 1, 2), Arrays.asList(1, 2, 1), Arrays.asList(2, 1, 1));
-        List<List<Integer>> actual = uniPerm.permuteUnique(nums);
+        List<List<Integer>> actual = hardUniquePerm.permuteUnique(nums);
         System.out.println(actual);
         Assertions.assertEquals(expected, actual);
     }
@@ -87,7 +87,7 @@ public class LeetcodePermTests {
         List<List<Integer>> expected =
                 Arrays.asList(Arrays.asList(1, 2, 3), Arrays.asList(1, 3, 2), Arrays.asList(2, 1, 3),
                         Arrays.asList(2, 3, 1), Arrays.asList(3, 1, 2), Arrays.asList(3, 2, 1));
-        List<List<Integer>> actual = uniPerm.permuteUnique(nums);
+        List<List<Integer>> actual = hardUniquePerm.permuteUnique(nums);
         System.out.println(actual);
         Assertions.assertEquals(expected, actual);
     }
