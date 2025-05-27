@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 
 @SpringBootTest
-public class LeetcodePermTests {
+public class LeetcodeMedianTests {
     @Autowired
     org.algorithms.test.copilot.leet.hard.median.Solution solution;
 
