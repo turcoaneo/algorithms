@@ -56,7 +56,7 @@ public class LeetcodeMergeTests {
 
     @ParameterizedTest
     @MethodSource("getMedianArgs")
-    void testGetPerm(ListNode[] input, ListNode expected) {
+    void test(ListNode[] input, ListNode expected) {
         ListNode actual = solution.mergeKLists(input);
         System.out.println(actual);
         if (expected == null) {
