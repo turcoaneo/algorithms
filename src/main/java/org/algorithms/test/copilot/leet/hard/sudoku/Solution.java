@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Component("solveSudoku")
 public class Solution {
     @TrackExecutionTime
     public void solveSudoku(char[][] board) {
