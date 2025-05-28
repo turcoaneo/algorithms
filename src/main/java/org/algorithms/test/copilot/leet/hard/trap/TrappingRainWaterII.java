@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 public class TrappingRainWaterII {
     @TrackExecutionTime
     public int trapRainWater(int[][] heightMap) {
+        //noinspection DuplicatedCode
         if (heightMap == null || heightMap.length == 0 || heightMap[0].length == 0) return 0;
 
         int m = heightMap.length, n = heightMap[0].length;

@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-@Component
-public class Solution {
+@Component("trapRainWater3D")
+public class Solution3D {
     @TrackExecutionTime
     public int trapRainWater(int[][] heightMap) {
+        //noinspection DuplicatedCode
         if (heightMap == null || heightMap.length == 0 || heightMap[0].length == 0) return 0;
 
         int m = heightMap.length, n = heightMap[0].length;
@@ -57,7 +58,7 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        Solution solver = new Solution();
+        Solution3D solver = new Solution3D();
         int[][] heightMap = {
                 {1, 4, 3, 1, 3, 2},
                 {3, 2, 1, 3, 2, 4},
