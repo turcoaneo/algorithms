@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-@Component
+@Component("trapRainWater")
 public class Solution {
     @TrackExecutionTime
     public int trapRainWater(int[][] heightMap) {
