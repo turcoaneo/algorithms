@@ -11,15 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.stream.Stream;
 
 @SpringBootTest
-public class ReverseKGroupTest {
+public class LeetcodeReverseKGroupTest {
     @Autowired
     org.algorithms.test.copilot.leet.hard.reverse.Solution solution;
     static Stream<Arguments> testCases() {
         return Stream.of(
-            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 2, createLinkedList(new int[]{2, 1, 4, 3, 5}))//,
-//            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 3, createLinkedList(new int[]{3, 2, 1, 4, 5})),
-//            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 1, createLinkedList(new int[]{1, 2, 3, 4, 5})), // No change expected
-//            Arguments.of(createLinkedList(new int[]{1, 2}), 2, createLinkedList(new int[]{2, 1}))
+            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 2, createLinkedList(new int[]{2, 1, 4, 3, 5})),
+            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 3, createLinkedList(new int[]{3, 2, 1, 4, 5})),
+            Arguments.of(createLinkedList(new int[]{1, 2, 3, 4, 5}), 1, createLinkedList(new int[]{1, 2, 3, 4, 5})), // No change expected
+            Arguments.of(createLinkedList(new int[]{1, 2}), 2, createLinkedList(new int[]{2, 1}))
         );
     }
 
