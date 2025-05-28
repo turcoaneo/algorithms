@@ -3,7 +3,7 @@ package org.algorithms.test.copilot.leet.hard.sudoku;
 import org.algorithms.test.copilot.aop.TrackExecutionTime;
 import org.springframework.stereotype.Component;
 
-@Component("solveSudoku")
+@Component("solveSudokuBrute")
 public class BruteRecursion {
     @TrackExecutionTime
     public void solveSudoku(char[][] board) {
