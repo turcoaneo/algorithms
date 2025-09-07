@@ -8,7 +8,7 @@ import java.util.Random;
 public class ABStringGenerator {
     public static void main(String[] args) throws IOException {
         int n = 100_000; // Length of the string
-        int q = 1000;    // Number of queries (you can adjust this)
+        int q = 100_000;    // Number of queries (you can adjust this)
 
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
@@ -31,7 +31,7 @@ public class ABStringGenerator {
         }
 
         // Write to input.txt
-        String file = "input_large2.txt";
+        String file = "input_extra_large.txt";
         Files.writeString(Path.of(file), sb.toString());
         System.out.println("Generated " + file + " with random A/B string and queries.");
     }

@@ -1,6 +1,5 @@
 package org.algorithms.test.copilot.ab;
 
-import org.algorithms.test.copilot.aop.TrackExecutionTime;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Component
 public class ABStringSolution {
-    @TrackExecutionTime
+    //    @TrackExecutionTime
     public void solve(String input, String output) {
         Path inputPath = Path.of(input);
         Path outputPath = Path.of(output);
