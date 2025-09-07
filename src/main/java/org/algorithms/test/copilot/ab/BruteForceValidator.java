@@ -1,12 +1,11 @@
 package org.algorithms.test.copilot.ab;
 
-import org.algorithms.test.copilot.aop.TrackExecutionTime;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BruteForceValidator {
 
-    @TrackExecutionTime
+    //    @TrackExecutionTime
     public int validate(String s, int l, int r, int k) {
         String sub = s.substring(l - 1, r);
         char charAt = sub.charAt(k - 1);

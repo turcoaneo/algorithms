@@ -17,6 +17,8 @@ public class ABStringSolutionTest {
     private ABStringSolution abStringSolution;
     @Autowired
     private BruteForceValidator bruteForceValidator;
+    @Autowired
+    private ABStringBenchmark benchmark;
 
     @Test
     void testStandard() throws IOException {
@@ -84,6 +86,13 @@ public class ABStringSolutionTest {
         Assertions.assertEquals("6", outputLines.get(2), "Expected result is 6");
         Assertions.assertEquals("12", outputLines.get(3), "Expected result is 12");
         Assertions.assertEquals("-1", outputLines.get(4), "Expected result is -1");
+    }
+
+    @Test
+    void testBenchmark() {
+        benchmark.runOptimized();
+        benchmark.runBruteForce();
+        benchmark.compareOutputs();
     }
 
     @Test
