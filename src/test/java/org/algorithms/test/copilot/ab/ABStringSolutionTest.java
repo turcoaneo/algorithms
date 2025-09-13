@@ -2,6 +2,9 @@ package org.algorithms.test.copilot.ab;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @SpringBootTest
 public class ABStringSolutionTest {
@@ -19,6 +23,32 @@ public class ABStringSolutionTest {
     private BruteForceValidator bruteForceValidator;
     @Autowired
     private ABStringBenchmark benchmark;
+
+    static Stream<Arguments> getABStringValues() {
+        return Stream.of(
+                Arguments.of("3 10 6", "4"),
+                Arguments.of("4 18 9", "10"),
+                Arguments.of("1 9 8", "6"),
+                Arguments.of("1 3 1", "2"),
+                Arguments.of("1 3 3", "-1"),
+                Arguments.of("7 10 3", "-1"),
+                Arguments.of("1 9 9", "-1"),
+                Arguments.of("2 6 5", "-1")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("getABStringValues")
+    void testProcessLine(String inputLine, String result) {
+        String header = "19 1";
+        String s = "ABABAABBBAAABABBAAB";
+        String[] headers = header.split(" ");
+        int n = Integer.parseInt(headers[0]);
+        int q = Integer.parseInt(headers[1]);
+        List<String> output = abStringSolution.processLines(List.of(header, s, inputLine), n, q, s);
+        Assertions.assertEquals(1, output.size());
+        Assertions.assertEquals(result, output.get(0));
+    }
 
     @Test
     void testStandard() throws IOException {

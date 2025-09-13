@@ -34,16 +34,28 @@ public class ABStringSolution {
         int q = Integer.parseInt(firstLine[1]);
         String s = lines.get(1);
 
-        List<String> outputLines = new ArrayList<>();
-
-        processLines(lines, q, space, n, outputLines, s);
-
-        return outputLines;
+        return processLines(lines, n, q, s);
     }
 
-    private void processLines(List<String> lines, int q, String space, int n, List<String> outputLines, String s) {
+    public List<String> processLines(List<String> lines, int n, int q, String s) {
+        List<String> outputLines = new ArrayList<>();
+        int[] a = new int[n];
+        int[] b = new int[n];
+        char[] charArray = lines.get(1).toCharArray();
+        a[0] = charArray[0] == 'A' ? 1 : 0;
+        b[0] = charArray[0] == 'B' ? 1 : 0;
+        for (int i = 1; i < charArray.length; i++) {
+            if (charArray[i] == 'A') {
+                a[i] = a[i - 1] + 1;
+                b[i] = b[i - 1];
+            } else {
+                b[i] = b[i - 1] + 1;
+                a[i] = a[i - 1];
+            }
+        }
+
         for (int i = 0; i < q; i++) {
-            String[] queryParts = lines.get(i + 2).split(space);
+            String[] queryParts = lines.get(i + 2).split(" ");
             int l = Integer.parseInt(queryParts[0]) - 1; // Convert to 0-based
             int r = Integer.parseInt(queryParts[1]) - 1;
             int k = Integer.parseInt(queryParts[2]) - 1;
@@ -55,38 +67,41 @@ public class ABStringSolution {
             }
 
             char targetChar = s.charAt(targetIndex);
-
-            // Count how many times targetChar appears before targetIndex in [l, r]
-            int count = 0;
-            for (int j = l; j < targetIndex; j++) {
-                if (s.charAt(j) == targetChar) count++;
+            int res;
+            if (targetChar == 'A') {
+                res = processLine(l, r, targetIndex, a, b);
+            } else {
+                res = processLine(l, r, targetIndex, b, a);
             }
-
-            char oppositeChar = (targetChar == 'A') ? 'B' : 'A';
-            int matchIndex = getMatchIndex(l, r, s, oppositeChar, count);
-
-            outputLines.add(matchIndex == -1 ? "-1" : String.valueOf(matchIndex));
+            outputLines.add(String.valueOf(res));
         }
+        return outputLines;
     }
 
-    private int getMatchIndex(int l, int r, String s, char oppositeChar, int count) {
-        // Find the count-th occurrence of oppositeChar in [l, r]
-        int matchIndex = -1;
-        int seen = 0;
-        int countOppositeChar = 0;
+    private int processLine(int l, int r, int k, int[] f, int[] g) {
+        int t = l == 0 ? 0 : f[l - 1];
+        int p = l == 0 ? 0 : g[l - 1];
+        int u = f[k] - t;
+        int z = p + u;
 
-        for (int j = l; j <= r; j++) {
-            countOppositeChar++;
-            char currentChar = s.charAt(j);
-            if (currentChar == oppositeChar) {
-                if (seen == count) {
-                    matchIndex = countOppositeChar;
-                    break;
-                }
-                seen++;
+        int v = lowerBound(g, z);
+        if (v < 0) return -1;
+
+        if (v < l || v > r) return -1;
+        return v - l + 1;
+    }
+
+    public int lowerBound(int[] arr, int target) {
+        int left = 0, right = arr.length;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
             }
         }
-        return matchIndex;
+        return left < arr.length ? left : -1;
     }
 
     public static void main(String[] args) {

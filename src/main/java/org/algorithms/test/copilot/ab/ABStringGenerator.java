@@ -24,8 +24,11 @@ public class ABStringGenerator {
 
         // Generate dummy queries
         for (int i = 0; i < q; i++) {
-            int l = random.nextInt(n - 10) + 1;
-            int r = l + random.nextInt(Math.min(50, n - l));
+//            int l = random.nextInt(n - 10) + 1;
+//            int r = l + random.nextInt(Math.min(50, n - l));
+//            int r = l + random.nextInt(n - l);
+            int l = random.nextInt(10) + 1;
+            int r = n - 100 + random.nextInt(100);
             int k = random.nextInt(r - l + 1) + 1;
             sb.append(l).append(" ").append(r).append(" ").append(k).append("\n");
         }
