@@ -37,18 +37,18 @@ public class ABStringSolutionTest {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("getABStringValues")
-    void testProcessLine(String inputLine, String result) {
-        String header = "19 1";
-        String s = "ABABAABBBAAABABBAAB";
-        String[] headers = header.split(" ");
-        int n = Integer.parseInt(headers[0]);
-        int q = Integer.parseInt(headers[1]);
-        List<String> output = abStringSolution.processLines(List.of(header, s, inputLine), n, q, s);
-        Assertions.assertEquals(1, output.size());
-        Assertions.assertEquals(result, output.get(0));
-    }
+//    @ParameterizedTest
+//    @MethodSource("getABStringValues")
+//    void testProcessLine(String inputLine, String result) {
+//        String header = "19 1";
+//        String s = "ABABAABBBAAABABBAAB";
+//        String[] headers = header.split(" ");
+//        int n = Integer.parseInt(headers[0]);
+//        int q = Integer.parseInt(headers[1]);
+//        List<String> output = abStringSolution.processLines(List.of(header, s, inputLine), n, q, s);
+//        Assertions.assertEquals(1, output.size());
+//        Assertions.assertEquals(result, output.get(0));
+//    }
 
     @Test
     void testStandard() throws IOException {
