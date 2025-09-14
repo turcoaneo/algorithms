@@ -24,7 +24,7 @@ public class ABStringSolution {
         }
     }
 
-    public void writeResults(Path outputPath, List<Integer> results) {
+    private void writeResults(Path outputPath, List<Integer> results) {
         StringBuilder builder = new StringBuilder(results.size() * 4); // Rough estimate: 3 digits + newline
 
         for (int result : results) {
@@ -104,7 +104,7 @@ public class ABStringSolution {
         return v - l + 1;
     }
 
-    public int lowerBound(int[] arr, int target) {
+    private int lowerBound(int[] arr, int target) {
         int left = 0, right = arr.length;
         while (left < right) {
             int mid = left + (right - left) / 2;
