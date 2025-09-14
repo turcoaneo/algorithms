@@ -28,7 +28,7 @@ public class ABStringSolution {
         StringBuilder builder = new StringBuilder(results.size() * 4); // Rough estimate: 3 digits + newline
 
         for (int result : results) {
-            builder.append(result).append('\n');
+            builder.append(result).append(System.lineSeparator());
         }
 
         try {
