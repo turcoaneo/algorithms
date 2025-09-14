@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +18,27 @@ public class ABStringSolution {
 
         try {
             List<String> lines = Files.readAllLines(inputPath);
-            List<String> outputLines = getResults(lines);
-
-            Files.write(outputPath, outputLines);
+            writeResults(outputPath, getResults(lines));
         } catch (IOException e) {
             System.err.println("Error handling files: " + e.getMessage());
         }
     }
 
-    private List<String> getResults(List<String> lines) {
+    public void writeResults(Path outputPath, List<Integer> results) {
+        StringBuilder builder = new StringBuilder(results.size() * 4); // Rough estimate: 3 digits + newline
+
+        for (int result : results) {
+            builder.append(result).append('\n');
+        }
+
+        try {
+            Files.writeString(outputPath, builder.toString(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            System.err.println("Error writing results: " + e.getMessage());
+        }
+    }
+
+    private List<Integer> getResults(List<String> lines) {
         if (lines.size() < 3) throw new IllegalArgumentException("Invalid input format");
 
         String space = " ";
@@ -37,8 +50,8 @@ public class ABStringSolution {
         return processLines(lines, n, q, s);
     }
 
-    public List<String> processLines(List<String> lines, int n, int q, String s) {
-        List<String> outputLines = new ArrayList<>();
+    public List<Integer> processLines(List<String> lines, int n, int q, String s) {
+        List<Integer> outputLines = new ArrayList<>();
         int[] a = new int[n];
         int[] b = new int[n];
         char[] charArray = lines.get(1).toCharArray();
@@ -62,7 +75,7 @@ public class ABStringSolution {
 
             int targetIndex = l + k;
             if (targetIndex > r || targetIndex < l || k > r - l + 1 || r > n) {
-                outputLines.add("-1");
+                outputLines.add(-1);
                 continue;
             }
 
@@ -73,7 +86,7 @@ public class ABStringSolution {
             } else {
                 res = processLine(l, r, targetIndex, b, a);
             }
-            outputLines.add(String.valueOf(res));
+            outputLines.add(res);
         }
         return outputLines;
     }

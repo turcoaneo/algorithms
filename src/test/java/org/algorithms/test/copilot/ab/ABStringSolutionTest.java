@@ -45,9 +45,9 @@ public class ABStringSolutionTest {
         String[] headers = header.split(" ");
         int n = Integer.parseInt(headers[0]);
         int q = Integer.parseInt(headers[1]);
-        List<String> output = abStringSolution.processLines(List.of(header, s, inputLine), n, q, s);
+        List<Integer> output = abStringSolution.processLines(List.of(header, s, inputLine), n, q, s);
         Assertions.assertEquals(1, output.size());
-        Assertions.assertEquals(result, output.get(0));
+        Assertions.assertEquals(Integer.valueOf(result), output.get(0));
     }
 
     @Test
