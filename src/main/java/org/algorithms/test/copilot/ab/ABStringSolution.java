@@ -118,8 +118,8 @@ public class ABStringSolution {
     }
 
     public static void main(String[] args) {
-        String input = "input.txt";
-        String output = "output.txt";
+        String input = "src/main/java/org/algorithms/test/copilot/ab/input.txt";
+        String output = "src/main/java/org/algorithms/test/copilot/ab/output.txt";
         ABStringSolution sol = new ABStringSolution();
         sol.solve(input, output);
     }

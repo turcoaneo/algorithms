@@ -1,20 +1,22 @@
 package org.algorithms.test.copilot.fundamentals;
 
+import org.algorithms.test.copilot.trees.RandomNumberGenerator;
 import org.algorithms.test.copilot.trees.binary.AVLTree;
 import org.algorithms.test.copilot.trees.binary.BST;
 import org.algorithms.test.copilot.trees.binary.RBTree;
-import org.algorithms.test.copilot.trees.RandomNumberGenerator;
 import org.algorithms.test.copilot.trees.btrees.BTree;
 import org.algorithms.test.copilot.trees.btrees.BTreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
 
 @SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TreesTests {
     @Autowired
     BST binarySearchTree;

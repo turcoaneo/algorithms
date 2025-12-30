@@ -15,7 +15,7 @@ public class MultiProcessingTests {
     private MatrixParallelSplit matrixParallelSplit;
 
     @Test
-    void testArrayIterativeQuickSortingHoare() {
+    void testSplitMatrix() {
         int M = 8;
         int N = 4;
 

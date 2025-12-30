@@ -31,7 +31,7 @@ public class MinPositiveInteger {
         if (A.length < 2) {
             return -1;
         }
-        Maxes maxes = new MinPositiveInteger().getMaxes(A);
+        Maxes maxes = getMaxes(A);
         int upper = maxes.upper();
         int prev = maxes.prev();
         if (upper <= 0) {
@@ -50,9 +50,10 @@ public class MinPositiveInteger {
     }
 
     public static void main(String[] args) {
-        int result = new MinPositiveInteger().getMinPositiveInteger(new int[]{-2, -1, 1});
+        MinPositiveInteger minPositiveInteger = new MinPositiveInteger();
+        int result = minPositiveInteger.getMinPositiveInteger(new int[]{-2, -1, 1});
         System.out.printf("Result = %d; ", result);
-        result = new MinPositiveInteger().getMinPositiveInteger(new int[]{-2, -1, 2});
+        result = minPositiveInteger.getMinPositiveInteger(new int[]{-2, -1, 2});
         System.out.printf("Result = %d.", result);
     }
 }
