@@ -12,7 +12,11 @@ public class AtomicCounterExampleTests {
 
     @Test
     void test() {
-        service.setSize(10_000);
+        service.setSize(100_000_000);
+        System.out.println(STR."Size = \{service.getSize()}");
+        service.runStructuredThreads();
+        Assertions.assertEquals(service.getCounter().get(), service.getSize());
+        service.getCounter().set(0);
         service.runThreads();
         Assertions.assertEquals(service.getCounter().get(), service.getSize());
         service.getCounter().set(0);
