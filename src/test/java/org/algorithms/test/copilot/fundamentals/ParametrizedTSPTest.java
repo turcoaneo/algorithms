@@ -52,7 +52,7 @@ class ParametrizedTSPTest {
     }
 
     @ParameterizedTest
-    @MethodSource("matrixProvider")
+    @MethodSource("matrixProvider")  // it might occasionally fail in maven test
     void testMatrixMultiplication(Integer[][] matrix, double temperature, double coolingRate, List<Integer> path,
                                   int cost) {
         tspBranchBound.setBranchBound(matrix);
