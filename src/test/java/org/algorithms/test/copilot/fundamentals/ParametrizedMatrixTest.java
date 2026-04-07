@@ -27,7 +27,7 @@ class ParametrizedMatrixTest {
         );
     }
 
-    @ParameterizedTest
+    @ParameterizedTest // it might occasionally fail in maven test
     @MethodSource("matrixProvider")
     void testMatrixMultiplication(int rows, int cols, int newRows, int newCols, int resultLength, Integer[] lastRow) {
 

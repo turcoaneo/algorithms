@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static java.lang.StringTemplate.STR;
+
 @Component
 public class AtomicCounterExample {
 
