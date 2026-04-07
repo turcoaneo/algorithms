@@ -9,7 +9,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class AtomicCounterExample {
 
-    private final int THREAD_POOL_SIZE = 4;
+    public int getThreadPoolSize() {
+        return THREAD_POOL_SIZE;
+    }
+
+    private final int THREAD_POOL_SIZE = Runtime.getRuntime().availableProcessors();
     private int size = 10;
     private boolean hasPrint = false;
 
@@ -30,20 +34,21 @@ public class AtomicCounterExample {
 
     public static void main(String[] args) throws Exception {
         AtomicCounterExample service = new AtomicCounterExample();
-        service.hasPrint = true;
+        System.out.println(STR."THREAD POOL SIZE: \{service.THREAD_POOL_SIZE}");
+        service.hasPrint = false;
 
         service.runStructuredThreads();
-        System.out.println("Final Counter Value: " + service.counter.get());
+        System.out.println(STR."Final Counter Value: \{service.counter.get()}");
         System.out.printf("Final Counter Value equals SIZE %s%n", service.counter.get() == service.size);
 
         service.counter.set(0);
         service.runCompletableThreads();
-        System.out.println("Final Counter Value: " + service.counter.get());
+        System.out.println(STR."Final Counter Value: \{service.counter.get()}");
         System.out.printf("Final Counter Value equals SIZE %s%n", service.counter.get() == service.size);
 
         service.counter.set(0);
         service.runStructuredThreads();
-        System.out.println("Final Counter Value: " + service.counter.get());
+        System.out.println(STR."Final Counter Value: \{service.counter.get()}");
         System.out.printf("Final Counter Value equals SIZE %s%n", service.counter.get() == service.size);
     }
 
@@ -79,7 +84,7 @@ public class AtomicCounterExample {
         populateQueue();
 
         var futures = java.util.stream.IntStream.range(0, THREAD_POOL_SIZE)
-                .mapToObj(i -> java.util.concurrent.CompletableFuture.runAsync(() -> {
+                .mapToObj(_ -> java.util.concurrent.CompletableFuture.runAsync(() -> {
                     while (!queue.isEmpty()) {
                         Integer val = queue.poll();
                         if (val != null) {

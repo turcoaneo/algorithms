@@ -60,7 +60,7 @@ public class ThreadPoolExample {
 
             // Task to run every 3 seconds after an initial delay of 1 second
             scheduledPool.scheduleAtFixedRate(() ->
-                            System.out.println("Recurring task executed at " + System.currentTimeMillis()),
+                            System.out.println(STR."Recurring task executed at \{System.currentTimeMillis()}"),
                     1, 3, TimeUnit.SECONDS);
 
             // Task to run once after 5 seconds delay
@@ -71,7 +71,7 @@ public class ThreadPoolExample {
             // Simulate execution time before shutting down
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
-            System.err.println("Exception caught: " + e.getMessage());
+            System.err.println(STR."Exception caught: \{e.getMessage()}");
             Thread.currentThread().interrupt(); // Preserve interrupt status
         } finally {
             closePool(scheduledPool);
@@ -88,8 +88,7 @@ public class ThreadPoolExample {
     private static void loopRun(int threads, ExecutorService pool, String type) {
         for (int i = 1; i <= threads; i++) {
             final int taskId = i;
-            pool.submit(() -> System.out.println("Task " + taskId + " running on " + type + " " +
-                    Thread.currentThread().getName()));
+            pool.submit(() -> System.out.println(STR."Task \{taskId} running on \{type} \{Thread.currentThread().getName()}"));
         }
     }
 }

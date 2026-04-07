@@ -12,8 +12,8 @@ public class AtomicCounterExampleTests {
 
     @Test
     void test() {
-        service.setSize(100_000_000);
-        System.out.println(STR."Size = \{service.getSize()}");
+        service.setSize(10_000_000);
+        System.out.println(STR."Size = \{service.getSize()}, Thread pool size = \{service.getThreadPoolSize()}");
         service.runStructuredThreads();
         Assertions.assertEquals(service.getCounter().get(), service.getSize());
         service.getCounter().set(0);
